@@ -12,6 +12,7 @@ class App extends React.Component {
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.updateFish = this.updateFish.bind(this);
     // Initial state
     this.state = {
       fishes: {},
@@ -27,15 +28,14 @@ class App extends React.Component {
         state: 'fishes',
       }
     );
+    // DO THIS WITH FUNCTIONAL setState
     // check if there is any order in localStorage
     const localStorageRef = localStorage.getItem(
       `order-${this.props.match.params.storeId}`
     );
     if (localStorageRef) {
       // update App's order state
-      this.setState({
-        order: JSON.parse(localStorageRef)
-      });
+      this.setState({ order: JSON.parse(localStorageRef) });
     }
   }
 
@@ -50,10 +50,18 @@ class App extends React.Component {
     base.removeBinding(this.ref);
   }
 
+  // DO THIS WITH FUNCTIONAL setState
   addFish(fish) {
     const fishes = { ...this.state.fishes };
     const timestamp = Date.now();
     fishes[`fish-${timestamp}`] = fish;
+    this.setState({ fishes });
+  }
+
+  // DO THIS WITH FUNCTIONAL setState
+  updateFish(key, updatedFish) {
+    const fishes = { ...this.state.fishes };
+    fishes[key] = updatedFish;
     this.setState({ fishes });
   }
 
@@ -95,8 +103,10 @@ class App extends React.Component {
           params={this.props.match.params}
         />
         <Inventory
+          fishes={this.state.fishes}
           addFish={this.addFish}
           loadSamples={this.loadSamples}
+          updateFish={this.updateFish}
         />
       </div>
     );

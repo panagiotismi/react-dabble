@@ -30,7 +30,7 @@ class Fish extends React.Component {
 Fish.propTypes = {
   details: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired,
-    desc: React.PropTypes.string,
+    desc: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired,
     price: React.PropTypes.number.isRequired,
     status: React.PropTypes.string.isRequired,
