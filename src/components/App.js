@@ -4,6 +4,7 @@ import Order from './Order';
 import Inventory from './Inventory';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
+import base from '../base';
 
 class App extends React.Component {
   constructor() {
@@ -16,6 +17,37 @@ class App extends React.Component {
       fishes: {},
       order: {},
     };
+  }
+
+  componentWillMount() {
+    this.ref = base.syncState(
+      `${this.props.match.params.storeId}/fishes`,
+      {
+        context: this,
+        state: 'fishes',
+      }
+    );
+    // check if there is any order in localStorage
+    const localStorageRef = localStorage.getItem(
+      `order-${this.props.match.params.storeId}`
+    );
+    if (localStorageRef) {
+      // update App's order state
+      this.setState({
+        order: JSON.parse(localStorageRef)
+      });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(
+      `order-${this.props.match.params.storeId}`,
+      JSON.stringify(nextState.order)
+    );
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   addFish(fish) {
@@ -60,6 +92,7 @@ class App extends React.Component {
         <Order
           fishes={this.state.fishes}
           order={this.state.order}
+          params={this.props.match.params}
         />
         <Inventory
           addFish={this.addFish}
@@ -69,5 +102,13 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  match: React.PropTypes.shape({
+    params: React.PropTypes.objectOf(
+      React.PropTypes.string.isRequired
+    ).isRequired,
+  }).isRequired,
+};
 
 export default App;
