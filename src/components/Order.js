@@ -30,7 +30,9 @@ class Order extends React.Component {
       const fish = this.props.fishes[key];
       const count = this.props.order[key];
       const isAvailable = fish && (fish.status === 'available');
-      return isAvailable ? (prevTotal + (count * fish.price || 0)) : prevTotal;
+      return isAvailable ?
+        prevTotal + (count * fish.price || 0) :
+        prevTotal;
     }, 0);
     return (
       <div className="order-wrap">
