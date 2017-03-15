@@ -74,8 +74,12 @@ class Order extends React.Component {
 }
 
 Order.propTypes = {
-  fishes: React.PropTypes.objectOf(React.PropTypes.object).isRequired,
-  order: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
+  fishes: React.PropTypes.objectOf(
+    React.PropTypes.object
+  ).isRequired,
+  order: React.PropTypes.objectOf(
+    React.PropTypes.number
+  ).isRequired,
   removeFromOrder: React.PropTypes.func.isRequired,
 };
 
