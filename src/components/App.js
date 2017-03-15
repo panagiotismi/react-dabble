@@ -10,9 +10,11 @@ class App extends React.Component {
   constructor() {
     super();
     this.addFish = this.addFish.bind(this);
+    this.updateFish = this.updateFish.bind(this);
+    this.removeFish = this.removeFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
-    this.updateFish = this.updateFish.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
     // Initial state
     this.state = {
       fishes: {},
@@ -65,6 +67,14 @@ class App extends React.Component {
     this.setState({ fishes });
   }
 
+  // DO THIS WITH FUNCTIONAL setState
+  removeFish(key) {
+    const fishes = { ...this.state.fishes };
+    // fisher state is kept in Firebase, so "delete obj[key]" doesn't work
+    fishes[key] = null;
+    this.setState({ fishes });
+  }
+
   loadSamples() {
     this.setState({ fishes: sampleFishes });
   }
@@ -75,6 +85,14 @@ class App extends React.Component {
     // update or add the new number of fish ordered
     order[key] = order[key] + 1 || 1;
     // update the state
+    this.setState({ order });
+  }
+
+  removeFromOrder(key) {
+    const order = { ...this.state.order };
+    // order state is kept in localStorage instead of Firebase,
+    // so "delete obj[key]" works
+    delete order[key];
     this.setState({ order });
   }
 
@@ -101,12 +119,14 @@ class App extends React.Component {
           fishes={this.state.fishes}
           order={this.state.order}
           params={this.props.match.params}
+          removeFromOrder={this.removeFromOrder}
         />
         <Inventory
           fishes={this.state.fishes}
           addFish={this.addFish}
           loadSamples={this.loadSamples}
           updateFish={this.updateFish}
+          removeFish={this.removeFish}
         />
       </div>
     );

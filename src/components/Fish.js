@@ -32,7 +32,10 @@ Fish.propTypes = {
     name: React.PropTypes.string.isRequired,
     desc: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired,
-    price: React.PropTypes.number.isRequired,
+    price: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]).isRequired,
     status: React.PropTypes.string.isRequired,
   }).isRequired,
   addToOrder: React.PropTypes.func.isRequired,

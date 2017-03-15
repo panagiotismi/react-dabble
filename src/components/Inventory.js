@@ -57,6 +57,9 @@ class Inventory extends React.Component {
           placeholder="Fish Image"
           onChange={e => this.handleChange(e, key)}
         />
+        <button onClick={() => this.props.removeFish(key)}>
+          Remove Fish
+        </button>
       </div>
     );
   }
@@ -83,6 +86,7 @@ Inventory.propTypes = {
   addFish: React.PropTypes.func.isRequired,
   loadSamples: React.PropTypes.func.isRequired,
   updateFish: React.PropTypes.func.isRequired,
+  removeFish: React.PropTypes.func.isRequired,
 };
 
 export default Inventory;

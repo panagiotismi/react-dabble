@@ -11,15 +11,21 @@ class Order extends React.Component {
     const fish = this.props.fishes[key];
     const count = this.props.order[key];
     const isAvailable = fish && (fish.status === 'available');
+    const removeButton = (
+      <button onClick={() => this.props.removeFromOrder(key)}>
+        <i className="fa fa-times" />
+      </button>
+    );
     return isAvailable ?
       (
         <li key={key}>
-          <span>{count}kgs of {fish.name}</span>
+          <span>{count}kgs of {fish.name} {removeButton}</span>
           <span className="price">{formatPrice(count * fish.price)}</span>
         </li>
       ) : (
         <li key={key}>
           Sorry, {fish ? fish.name : 'fish'} is no longer available!
+          {removeButton}
         </li>
       );
   }
@@ -52,6 +58,7 @@ class Order extends React.Component {
 Order.propTypes = {
   fishes: React.PropTypes.objectOf(React.PropTypes.object).isRequired,
   order: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
+  removeFromOrder: React.PropTypes.func.isRequired,
 };
 
 export default Order;
