@@ -4,8 +4,8 @@ import StorePicker from './StorePicker';
 import App from './App';
 import NotFound from './NotFound';
 
-// Little hack for deploy in github pages
-// You need to add basename={repo} prop to BrowserRouter below
+// Little hack for deploy in github pages.
+// You need to add basename={repo} prop to BrowserRouter below.
 // const repo = `/${window.location.pathname.split('/')[1]}`;
 
 const Root = () => (
