@@ -2,13 +2,13 @@
   "name": "react-dabble",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://mixlos.github.io/react-dabble",
   "dependencies": {
     "re-base": "^2.6.0",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router-dom": "^4.0.0",
-    "serve": "latest"
+    "react-router-dom": "^4.0.0"
   },
   "devDependencies": {
     "autoprefixer-stylus": "^0.13.0",
@@ -25,7 +25,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
-    "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
-    "now-start": "serve ./build --single"
+    "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
   }
 }
