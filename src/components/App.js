@@ -9,12 +9,14 @@ import base from '../base';
 class App extends React.Component {
   constructor() {
     super();
+
     this.addFish = this.addFish.bind(this);
     this.updateFish = this.updateFish.bind(this);
     this.removeFish = this.removeFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     this.removeFromOrder = this.removeFromOrder.bind(this);
+
     // Initial state
     this.state = {
       fishes: {},
@@ -127,6 +129,7 @@ class App extends React.Component {
           loadSamples={this.loadSamples}
           updateFish={this.updateFish}
           removeFish={this.removeFish}
+          storeId={this.props.match.params.storeId}
         />
       </div>
     );

@@ -1,11 +1,30 @@
 import React from 'react';
 import AddFishForm from './AddFishForm';
+import base from '../base';
 
 class Inventory extends React.Component {
   constructor() {
     super();
-    this.renderInventory = this.renderInventory.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
+    this.authHandler = this.authHandler.bind(this);
+    this.authenticate = this.authenticate.bind(this);
+    this.logout = this.logout.bind(this);
+    this.renderLogin = this.renderLogin.bind(this);
+    this.renderInventory = this.renderInventory.bind(this);
+
+    this.state = {
+      uid: null,
+      owner: null,
+    };
+  }
+
+  componentDidMount() {
+    base.onAuth((user) => {
+      if (user) {
+        this.authHandler(null, { user });
+      }
+    });
   }
 
   handleChange(e, key) {
@@ -15,6 +34,63 @@ class Inventory extends React.Component {
       [e.target.name]: e.target.value
     };
     this.props.updateFish(key, updatedFish);
+  }
+
+  authHandler(err, authData) {
+    if (err) {
+      /* eslint-disable no-console */
+      console.error(err);
+      /* eslint-enable no-console */
+    }
+
+    // grab the store info
+    const storeRef = base.database()
+      .ref(this.props.storeId);
+
+    // query firebase once for store data
+    storeRef.once('value', (snapshot) => {
+      const data = snapshot.val() || {};
+      // claim it as our own if there is no owner already
+      if (!data.owner) {
+        storeRef.set({
+          owner: authData.user.uid,
+        });
+      }
+      this.setState({
+        uid: authData.user.uid,
+        owner: data.owner || authData.user.uid,
+      });
+    });
+  }
+
+  authenticate(provider) {
+    base.authWithOAuthPopup(provider, this.authHandler);
+  }
+
+  logout() {
+    base.unauth();
+    this.setState({ uid: null });
+  }
+
+  renderLogin() {
+    return (
+      <nav className="login">
+        <h2>Inventory</h2>
+        <p>Sign in to manage your store&apos;s inventory</p>
+        <button
+          className="github"
+          onClick={() => this.authenticate('github')}
+        >
+          Log In with GitHub
+        </button>
+        <button
+          className="twitter"
+          onClick={() => this.authenticate('twitter')}
+        >
+          Log In with Twitter
+        </button>
+      </nav>
+    );
   }
 
   renderInventory(key) {
@@ -65,13 +141,35 @@ class Inventory extends React.Component {
   }
 
   render() {
+    const logoutButton = (
+      <button onClick={this.logout}>
+        Log Out
+      </button>
+    );
+
+    // check if there is anyone logged in at all
+    if (!this.state.uid) {
+      return (
+        <div>
+          {this.renderLogin()}
+        </div>
+      );
+    }
+    // check if they are the owner of the current store
+    if (this.state.uid !== this.state.owner) {
+      return (
+        <div>
+          <p>Sorry you aren&apos;t the owner of this store!</p>
+          {logoutButton}
+        </div>
+      );
+    }
+    // default return
     return (
       <div>
         <h2>Inventory</h2>
-        {
-          Object.keys(this.props.fishes)
-          .map(this.renderInventory)
-        }
+        {logoutButton}
+        {Object.keys(this.props.fishes).map(this.renderInventory)}
         <AddFishForm addFish={this.props.addFish} />
         <button onClick={this.props.loadSamples}>
           Load Sample Fish
@@ -89,6 +187,7 @@ Inventory.propTypes = {
   loadSamples: React.PropTypes.func.isRequired,
   updateFish: React.PropTypes.func.isRequired,
   removeFish: React.PropTypes.func.isRequired,
+  storeId: React.PropTypes.string.isRequired,
 };
 
 export default Inventory;
