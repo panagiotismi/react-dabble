@@ -3,20 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "re-base": "^2.6.0",
-    "react": "^15.4.2",
-    "react-addons-css-transition-group": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-router-dom": "^4.0.0"
+    "firebase": "^7.2.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-router-dom": "^5.1.2",
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
-    "autoprefixer-stylus": "^0.13.0",
-    "concurrently": "^3.4.0",
-    "enzyme": "^2.7.1",
-    "gh-pages": "^0.12.0",
-    "react-addons-test-utils": "^15.4.2",
-    "react-scripts": "0.9.4",
-    "stylus": "^0.54.5"
+    "autoprefixer-stylus": "^1.0.0",
+    "concurrently": "^5.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "gh-pages": "^2.1.1",
+    "react-scripts": "^3.2.0",
+    "stylus": "^0.54.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -26,5 +27,17 @@
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

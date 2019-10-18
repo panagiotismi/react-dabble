@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AddFishForm from './AddFishForm';
 import base from '../base';
 
@@ -20,7 +21,7 @@ class Inventory extends React.Component {
   }
 
   componentDidMount() {
-    base.onAuth((user) => {
+    base.onAuth(user => {
       if (user) {
         this.authHandler(null, { user });
       }
@@ -31,7 +32,7 @@ class Inventory extends React.Component {
     const fish = this.props.fishes[key];
     const updatedFish = {
       ...fish,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     };
     this.props.updateFish(key, updatedFish);
   }
@@ -44,11 +45,10 @@ class Inventory extends React.Component {
     }
 
     // grab the store info
-    const storeRef = base.database()
-      .ref(this.props.storeId);
+    const storeRef = base.database().ref(this.props.storeId);
 
     // query firebase once for store data
-    storeRef.once('value', (snapshot) => {
+    storeRef.once('value', snapshot => {
       const data = snapshot.val() || {};
       // claim it as our own if there is no owner already
       if (!data.owner) {
@@ -78,12 +78,14 @@ class Inventory extends React.Component {
         <h2>Inventory</h2>
         <p>Sign in to manage your store&apos;s inventory</p>
         <button
+          type="button"
           className="github"
           onClick={() => this.authenticate('github')}
         >
           Log In with GitHub
         </button>
         <button
+          type="button"
           className="twitter"
           onClick={() => this.authenticate('twitter')}
         >
@@ -133,7 +135,7 @@ class Inventory extends React.Component {
           placeholder="Fish Image"
           onChange={e => this.handleChange(e, key)}
         />
-        <button onClick={() => this.props.removeFish(key)}>
+        <button type="button" onClick={() => this.props.removeFish(key)}>
           Remove Fish
         </button>
       </div>
@@ -142,18 +144,14 @@ class Inventory extends React.Component {
 
   render() {
     const logoutButton = (
-      <button onClick={this.logout}>
+      <button type="button" onClick={this.logout}>
         Log Out
       </button>
     );
 
     // check if there is anyone logged in at all
     if (!this.state.uid) {
-      return (
-        <div>
-          {this.renderLogin()}
-        </div>
-      );
+      return <div>{this.renderLogin()}</div>;
     }
     // check if they are the owner of the current store
     if (this.state.uid !== this.state.owner) {
@@ -171,7 +169,7 @@ class Inventory extends React.Component {
         {logoutButton}
         {Object.keys(this.props.fishes).map(this.renderInventory)}
         <AddFishForm addFish={this.props.addFish} />
-        <button onClick={this.props.loadSamples}>
+        <button type="button" onClick={this.props.loadSamples}>
           Load Sample Fish
         </button>
       </div>
@@ -180,14 +178,12 @@ class Inventory extends React.Component {
 }
 
 Inventory.propTypes = {
-  fishes: React.PropTypes.objectOf(
-    React.PropTypes.object
-  ).isRequired,
-  addFish: React.PropTypes.func.isRequired,
-  loadSamples: React.PropTypes.func.isRequired,
-  updateFish: React.PropTypes.func.isRequired,
-  removeFish: React.PropTypes.func.isRequired,
-  storeId: React.PropTypes.string.isRequired,
+  fishes: React.PropTypes.objectOf(PropTypes.object).isRequired,
+  addFish: PropTypes.func.isRequired,
+  loadSamples: PropTypes.func.isRequired,
+  updateFish: PropTypes.func.isRequired,
+  removeFish: PropTypes.func.isRequired,
+  storeId: PropTypes.string.isRequired,
 };
 
 export default Inventory;

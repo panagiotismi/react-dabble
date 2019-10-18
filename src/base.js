@@ -1,9 +1,9 @@
 import Rebase from 're-base';
 
 const base = Rebase.createClass({
-  apiKey: 'AIzaSyCBSVkNGjHNZhx7vuq54q4usjG5HrWNdXE',
-  authDomain: 'react-dabble.firebaseapp.com',
-  databaseURL: 'https://react-dabble.firebaseio.com',
+  apiKey: 'SUPER_SECRET_KEY',
+  authDomain: 'YOUR_AUTH_DOMAIN',
+  databaseURL: 'YOUR_DB_URL',
 });
 
 export default base;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
@@ -25,13 +26,10 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.ref = base.syncState(
-      `${this.props.match.params.storeId}/fishes`,
-      {
-        context: this,
-        state: 'fishes',
-      }
-    );
+    this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes',
+    });
     // DO THIS WITH FUNCTIONAL setState
     // check if there is any order in localStorage
     const localStorageRef = localStorage.getItem(
@@ -104,17 +102,14 @@ class App extends React.Component {
         <div className="menu">
           <Header tagline="Fresh Seafood Market" />
           <ul className="list-of-fishes">
-            {
-              Object.keys(this.state.fishes)
-              .map(key =>
-                <Fish
-                  key={key}
-                  index={key}
-                  details={this.state.fishes[key]}
-                  addToOrder={this.addToOrder}
-                />
-              )
-            }
+            {Object.keys(this.state.fishes).map(key => (
+              <Fish
+                key={key}
+                index={key}
+                details={this.state.fishes[key]}
+                addToOrder={this.addToOrder}
+              />
+            ))}
           </ul>
         </div>
         <Order
@@ -137,10 +132,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  match: React.PropTypes.shape({
-    params: React.PropTypes.objectOf(
-      React.PropTypes.string.isRequired
-    ).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
 };
 
