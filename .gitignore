@@ -18,4 +18,4 @@ yarn-error.log*
 .tern-project
 deployment.md
 security-rules.json
-/src/base.js.real
+/src/secrets.js

@@ -1,34 +1,34 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { getFunName } from '../helpers';
 
-class StorePicker extends React.Component {
-  goToStore(e) {
+const StorePicker = ({ history }) => {
+  const storeInput = useRef(getFunName());
+
+  const goToStore = e => {
     e.preventDefault();
     // first grab the text from the input box
-    const storeId = this.storeInput.value;
+    const storeId = storeInput.current.value;
     // second transition from / to /store/:storeId
-    return this.props.history.push(`/store/${storeId}`);
-  }
+    return history.push(`/store/${storeId}`);
+  };
 
-  render() {
-    return (
-      <form className="store-selector" onSubmit={e => this.goToStore(e)}>
-        <h2>Please Enter A Store</h2>
-        <input
-          type="text"
-          required
-          placeholder="Store Name"
-          defaultValue={getFunName()}
-          ref={input => (this.storeInput = input)}
-        />
-        <button type="submit">
-          Visit Store <i className="fa fa-arrow-right" />
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="store-selector" onSubmit={e => goToStore(e)}>
+      <h2>Please Enter A Store</h2>
+      <input
+        type="text"
+        required
+        placeholder="Store Name"
+        defaultValue={getFunName()}
+        ref={storeInput}
+      />
+      <button type="submit">
+        Visit Store <i className="fa fa-arrow-right" />
+      </button>
+    </form>
+  );
+};
 
 StorePicker.propTypes = {
   history: PropTypes.shape({

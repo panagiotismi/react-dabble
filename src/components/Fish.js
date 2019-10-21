@@ -13,7 +13,11 @@ const Fish = ({ details, index, addToOrder }) => {
         <span className="price">{formatPrice(details.price)}</span>
       </h3>
       <p>{details.desc}</p>
-      <button disabled={!isAvailable} onClick={() => addToOrder(index)}>
+      <button
+        type="button"
+        disabled={!isAvailable}
+        onClick={() => addToOrder(index)}
+      >
         {buttonText}
       </button>
     </li>

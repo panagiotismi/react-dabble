@@ -1,9 +1,10 @@
 import Rebase from 're-base';
+import firebase from 'firebase/app';
+import 'firebase/database';
+import { firebaseConfig } from './secrets';
 
-const base = Rebase.createClass({
-  apiKey: 'SUPER_SECRET_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  databaseURL: 'YOUR_DB_URL',
-});
+// Initialize Firebase
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+const base = Rebase.createClass(firebaseApp.database());
 export default base;

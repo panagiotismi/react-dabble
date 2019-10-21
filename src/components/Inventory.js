@@ -178,7 +178,7 @@ class Inventory extends React.Component {
 }
 
 Inventory.propTypes = {
-  fishes: React.PropTypes.objectOf(PropTypes.object).isRequired,
+  fishes: PropTypes.objectOf(PropTypes.object).isRequired,
   addFish: PropTypes.func.isRequired,
   loadSamples: PropTypes.func.isRequired,
   updateFish: PropTypes.func.isRequired,
