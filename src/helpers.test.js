@@ -8,7 +8,7 @@ it('should convert cents to euros', () => {
 
 it('should convert negative cents values correctly', () => {
   const actual = formatPrice(-2);
-  const expected = '€-0.02';
+  const expected = '-€0.02';
   expect(actual).toBe(expected);
 });
 

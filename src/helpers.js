@@ -1,5 +1,8 @@
 export const formatPrice = cents =>
-  `€${(cents / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+  (cents / 100 || 0).toLocaleString('el-GR', {
+    style: 'currency',
+    currency: 'EUR',
+  });
 
 export const slugify = text =>
   text

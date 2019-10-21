@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Root from './components/Root';
+import Router from './components/Router';
 import './css/style.css';
 
-render(<Root />, document.getElementById('main'));
+render(<Router />, document.getElementById('main'));

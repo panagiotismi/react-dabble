@@ -8,7 +8,7 @@ import NotFound from './NotFound';
 // You need to add basename={repo} prop to BrowserRouter below.
 // const repo = `/${window.location.pathname.split('/')[1]}`;
 
-const Root = () => (
+const Router = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={StorePicker} />
@@ -18,4 +18,4 @@ const Root = () => (
   </BrowserRouter>
 );
 
-export default Root;
+export default Router;
