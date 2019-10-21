@@ -11,28 +11,19 @@ const App = ({ match = {} }) => {
   const [fishes, setFishes] = useState({});
   const [order, setOrder] = useState({});
 
-  const addFish = fish => () =>
-    setFishes({ ...fishes, [`fish-${Date.now()}`]: fish });
+  const addFish = fish => setFishes({ ...fishes, [`fish${Date.now()}`]: fish });
 
-  const updateFish = (key, updatedFish) => () =>
+  const updateFish = (key, updatedFish) =>
     setFishes({ ...fishes, [key]: updatedFish });
 
-  const removeFish = key => () => setFishes({ ...fishes, [key]: null });
+  const removeFish = key => setFishes({ ...fishes, [key]: null });
 
-  const addToOrder = key => () =>
-    setOrder({ ...order, [key]: order[key] + 1 || 1 });
+  const addToOrder = key => setOrder({ ...order, [key]: order[key] + 1 || 1 });
 
   const removeFromOrder = key => {
     delete order[key];
-    return () => setOrder(order);
+    return setOrder(order);
   };
-
-  // useEffect(() => {
-  //   effect;
-  //   return () => {
-  //     cleanup;
-  //   };
-  // }, []);
 
   return (
     <div className="catch-of-the-day">
@@ -49,12 +40,12 @@ const App = ({ match = {} }) => {
           ))}
         </ul>
       </div>
-      <Order
+      {/* <Order
         fishes={fishes}
         order={order}
         params={match || match.params}
         removeFromOrder={removeFromOrder}
-      />
+      /> */}
       <Inventory
         fishes={fishes}
         addFish={addFish}
