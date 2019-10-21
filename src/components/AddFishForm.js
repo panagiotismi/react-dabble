@@ -1,55 +1,39 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-class AddFishForm extends React.Component {
-  createFish(e) {
-    e.preventDefault();
-    const fish = {
-      name: this.name.value,
-      price: this.price.value,
-      status: this.status.value,
-      desc: this.desc.value,
-      image: this.image.value,
-    };
-    this.props.addFish(fish);
-    this.fishForm.reset();
-  }
+const AddFishForm = ({ addFish }) => {
+  const fishForm = useRef(null);
+  const name = useRef(null);
+  const price = useRef(null);
+  const status = useRef(null);
+  const desc = useRef(null);
+  const image = useRef(null);
 
-  render() {
-    return (
-      <form
-        ref={input => (this.fishForm = input)}
-        className="fish-edit"
-        onSubmit={e => this.createFish(e)}
-      >
-        <input
-          ref={input => (this.name = input)}
-          type="text"
-          placeholder="Fish Name"
-        />
-        <input
-          ref={input => (this.price = input)}
-          type="text"
-          placeholder="Fish Price"
-        />
-        <select ref={input => (this.status = input)}>
-          <option value="available">Fresh!</option>
-          <option value="unavailable">Sold Out</option>
-        </select>
-        <textarea
-          ref={input => (this.desc = input)}
-          placeholder="Fish Description"
-        />
-        <input
-          ref={input => (this.image = input)}
-          type="text"
-          placeholder="Fish Image"
-        />
-        <button type="submit">+ Add Item</button>
-      </form>
-    );
-  }
-}
+  const createFish = e => {
+    e.preventDefault();
+    addFish({
+      name: name.current.value,
+      price: price.current.value,
+      status: status.current.value,
+      desc: desc.current.value,
+      image: image.current.value,
+    });
+    fishForm.reset();
+  };
+  return (
+    <form ref={fishForm} className="fish-edit" onSubmit={createFish}>
+      <input ref={name} type="text" placeholder="Fish Name" />
+      <input ref={price} type="text" placeholder="Fish Price" />
+      <select ref={status}>
+        <option value="available">Fresh!</option>
+        <option value="unavailable">Sold Out</option>
+      </select>
+      <textarea ref={desc} placeholder="Fish Description" />
+      <input ref={image} type="text" placeholder="Fish Image" />
+      <button type="submit">+ Add Item</button>
+    </form>
+  );
+};
 
 AddFishForm.propTypes = {
   addFish: PropTypes.func.isRequired,

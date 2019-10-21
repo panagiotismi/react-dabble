@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import { getFunName } from '../helpers';
 
 const StorePicker = ({ history }) => {
-  const storeInput = useRef(getFunName());
+  const storeInput = useRef(null);
 
   const goToStore = e => {
     e.preventDefault();
-    // first grab the text from the input box
-    const storeId = storeInput.current.value;
-    // second transition from / to /store/:storeId
-    return history.push(`/store/${storeId}`);
+    // grab the text from the input box and transition to /store/:storeName
+    return history.push(`/store/${storeInput.current.value}`);
   };
 
   return (
-    <form className="store-selector" onSubmit={e => goToStore(e)}>
+    <form className="store-selector" onSubmit={goToStore}>
       <h2>Please Enter A Store</h2>
       <input
         type="text"

@@ -22,7 +22,7 @@ class Order extends React.Component {
     return isAvailable ? (
       <li key={key}>
         <span>
-          <CSSTransition
+          {/* <CSSTransition
             component="span"
             className="count"
             transitionName="count"
@@ -30,7 +30,7 @@ class Order extends React.Component {
             transitionLeaveTimeout={250}
           >
             <span key={count}>{count}</span>
-          </CSSTransition>
+          </CSSTransition> */}
           kgs of {fish.name} {removeButton}
         </span>
         <span className="price">{formatPrice(count * fish.price)}</span>
@@ -54,7 +54,7 @@ class Order extends React.Component {
     return (
       <div className="order-wrap">
         <h2>Your Order</h2>
-        <CSSTransition
+        {/* <CSSTransition
           component="ul"
           className="order"
           transitionName="order"
@@ -66,7 +66,7 @@ class Order extends React.Component {
             <strong>Total:</strong>
             {formatPrice(total)}
           </li>
-        </CSSTransition>
+        </CSSTransition> */}
       </div>
     );
   }

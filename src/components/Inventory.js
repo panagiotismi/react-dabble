@@ -45,7 +45,7 @@ class Inventory extends React.Component {
     }
 
     // grab the store info
-    const storeRef = base.database().ref(this.props.storeId);
+    const storeRef = base.database().ref(this.props.storeName);
 
     // query firebase once for store data
     storeRef.once('value', snapshot => {
@@ -183,7 +183,7 @@ Inventory.propTypes = {
   loadSamples: PropTypes.func.isRequired,
   updateFish: PropTypes.func.isRequired,
   removeFish: PropTypes.func.isRequired,
-  storeId: PropTypes.string.isRequired,
+  storeName: PropTypes.string.isRequired,
 };
 
 export default Inventory;

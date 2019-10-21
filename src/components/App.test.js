@@ -7,12 +7,9 @@ import Order from './Order';
 import Inventory from './Inventory';
 
 configure({ adapter: new Adapter() });
-
-it('renders App without crashing', () => {
-  shallow(<App />);
-});
-
 const wrapper = shallow(<App />);
+
+it('renders App without crashing', () => wrapper);
 
 it('renders Header', () => {
   const header = <Header tagline="Fresh Seafood Market" />;

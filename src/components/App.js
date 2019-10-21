@@ -7,7 +7,7 @@ import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
 import base from '../base';
 
-const App = ({ match }) => {
+const App = ({ match = {} }) => {
   const [fishes, setFishes] = useState({});
   const [order, setOrder] = useState({});
 
@@ -17,7 +17,15 @@ const App = ({ match }) => {
   const updateFish = (key, updatedFish) => () =>
     setFishes({ ...fishes, [key]: updatedFish });
 
-  const removeFish = key => setFishes({ ...fishes, [key]: null });
+  const removeFish = key => () => setFishes({ ...fishes, [key]: null });
+
+  const addToOrder = key => () =>
+    setOrder({ ...order, [key]: order[key] + 1 || 1 });
+
+  const removeFromOrder = key => {
+    delete order[key];
+    return () => setOrder(order);
+  };
 
   // useEffect(() => {
   //   effect;
@@ -36,7 +44,7 @@ const App = ({ match }) => {
               key={key}
               index={key}
               details={fishes[key]}
-              addToOrder={this.addToOrder}
+              addToOrder={addToOrder}
             />
           ))}
         </ul>
@@ -44,8 +52,8 @@ const App = ({ match }) => {
       <Order
         fishes={fishes}
         order={order}
-        params={match.params}
-        removeFromOrder={this.removeFromOrder}
+        params={match || match.params}
+        removeFromOrder={removeFromOrder}
       />
       <Inventory
         fishes={fishes}
@@ -53,7 +61,7 @@ const App = ({ match }) => {
         loadSamples={() => setFishes(sampleFishes)}
         updateFish={updateFish}
         removeFish={removeFish}
-        storeId={match.params.storeId}
+        storeName={match.params.storeName}
       />
     </div>
   );
@@ -183,10 +191,14 @@ const App = ({ match }) => {
 //   }
 // }
 
+App.defaultProps = {
+  match: {},
+};
+
 App.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired,
+  }),
 };
 
 export default App;
