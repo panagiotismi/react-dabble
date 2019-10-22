@@ -2,17 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatPrice } from '../helpers';
 
-const Fish = ({ details, index, addToOrder }) => {
-  const isAvailable = details.status === 'available';
+const Fish = ({
+  details: { name, image, price, desc, status },
+  index,
+  addToOrder,
+}) => {
+  const isAvailable = status === 'available';
   const buttonText = isAvailable ? 'Add To Order' : 'Sold Out!';
   return (
     <li className="menu-fish">
-      <img src={details.image} alt={details.name} />
+      <img src={image} alt={name} />
       <h3 className="fish-name">
-        {details.name}
-        <span className="price">{formatPrice(details.price)}</span>
+        {name}
+        <span className="price">{formatPrice(price)}</span>
       </h3>
-      <p>{details.desc}</p>
+      <p>{desc}</p>
       <button
         type="button"
         disabled={!isAvailable}

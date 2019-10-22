@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "watch": "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
+    "watch": "concurrently -n \"webpack,stylus\" -p name \"npm run start\" \"npm run styles:watch\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

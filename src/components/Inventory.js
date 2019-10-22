@@ -4,9 +4,9 @@ import AddFishForm from './AddFishForm';
 import base from '../base';
 
 const Inventory = ({
+  loadSamples,
   fishes,
   addFish,
-  loadSamples,
   updateFish,
   removeFish,
   storeName,

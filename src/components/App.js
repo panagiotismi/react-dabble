@@ -40,16 +40,16 @@ const App = ({ match = {} }) => {
           ))}
         </ul>
       </div>
-      {/* <Order
+      <Order
         fishes={fishes}
         order={order}
-        params={match || match.params}
         removeFromOrder={removeFromOrder}
-      /> */}
+        params={match || match.params}
+      />
       <Inventory
         fishes={fishes}
-        addFish={addFish}
         loadSamples={() => setFishes(sampleFishes)}
+        addFish={addFish}
         updateFish={updateFish}
         removeFish={removeFish}
         storeName={match.params.storeName}
