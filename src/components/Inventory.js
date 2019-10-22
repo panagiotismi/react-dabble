@@ -14,7 +14,12 @@ const Inventory = ({
   <div className="inventory">
     <h2>Inventory</h2>
     {Object.keys(fishes).map(key => (
-      <EditFishForm />
+      <EditFishForm
+        key={key}
+        index={key}
+        fish={fishes[key]}
+        updateFish={updateFish}
+      />
     ))}
     <AddFishForm addFish={addFish} />
     <button type="button" onClick={loadSamples}>

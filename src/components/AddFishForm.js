@@ -15,7 +15,7 @@ const AddFishForm = ({ addFish }) => {
       price: parseFloat(priceInput.current.value),
       status: statusSelect.current.value,
       desc: descArea.current.value,
-      image: imageInput.current.value,
+      image: `https://picsum.photos/seed/${imageInput.current.value}/200`,
     });
     e.currentTarget.reset();
   };
