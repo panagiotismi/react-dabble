@@ -14,9 +14,13 @@ const App = ({ match: { params } }) => {
 
   useEffect(() => {
     const ref = base.ref(`${params.storeName}/fishes`);
-    ref.on('value', snapshot => snapshot.exists() && setFishes(snapshot.val()));
-    ref.update(fishes);
+    ref.on('value', snapshot => setFishes(snapshot.val() || {}));
     return () => ref.off();
+  }, [params.storeName]);
+
+  useEffect(() => {
+    const ref = base.ref(`${params.storeName}/fishes`);
+    ref.update(fishes);
   }, [fishes, params.storeName]);
 
   const addFish = fish => setFishes({ ...fishes, [`fish${Date.now()}`]: fish });
