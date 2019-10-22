@@ -23,6 +23,17 @@ const App = ({ match: { params } }) => {
     ref.update(fishes);
   }, [fishes, params.storeName]);
 
+  useEffect(() => {
+    const localStorageRef = localStorage.getItem(`order-${params.storeName}`);
+    if (localStorageRef) {
+      setOrder(JSON.parse(localStorageRef));
+    }
+  }, [params.storeName]);
+
+  useEffect(() => {
+    localStorage.setItem(`order-${params.storeName}`, JSON.stringify(order));
+  }, [order, params.storeName]);
+
   const addFish = fish => setFishes({ ...fishes, [`fish${Date.now()}`]: fish });
 
   const updateFish = (key, updatedFish) =>

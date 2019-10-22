@@ -14,13 +14,16 @@ const Order = ({ fishes, order, removeFromOrder }) => {
 
   const renderOrder = key => {
     const fish = fishes[key];
+    if (!fish) {
+      return null;
+    }
     const count = order[key];
+    const isAvailable = fish && fish.status === 'available';
     const removeButton = (
       <button type="button" onClick={() => removeFromOrder(key)}>
         <i className="fa fa-times fa-lg" />
       </button>
     );
-    const isAvailable = fish && fish.status === 'available';
     return isAvailable ? (
       <li key={key}>
         {count} kgs of {fish.name} {removeButton}
