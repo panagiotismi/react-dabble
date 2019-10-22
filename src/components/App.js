@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import base from '../base';
+
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
-import base from '../base';
 
-const App = ({ match = {} }) => {
+const App = ({ match: { params } }) => {
   const [fishes, setFishes] = useState({});
   const [order, setOrder] = useState({});
+
+  useEffect(() => {
+    const ref = base.ref(`${params.storeName}/fishes`);
+    ref.on('value', snapshot => snapshot.exists() && setFishes(snapshot.val()));
+    ref.update(fishes);
+    return () => ref.off();
+  }, [fishes, params.storeName]);
 
   const addFish = fish => setFishes({ ...fishes, [`fish${Date.now()}`]: fish });
 
@@ -44,7 +52,7 @@ const App = ({ match = {} }) => {
         fishes={fishes}
         order={order}
         removeFromOrder={removeFromOrder}
-        params={match || match.params}
+        params={params}
       />
       <Inventory
         fishes={fishes}
@@ -52,7 +60,7 @@ const App = ({ match = {} }) => {
         addFish={addFish}
         updateFish={updateFish}
         removeFish={removeFish}
-        storeName={match.params.storeName}
+        storeName={params.storeName}
       />
     </div>
   );
@@ -182,14 +190,10 @@ const App = ({ match = {} }) => {
 //   }
 // }
 
-App.defaultProps = {
-  match: {},
-};
-
 App.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
-  }),
+  }).isRequired,
 };
 
 export default App;

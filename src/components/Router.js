@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import StorePicker from './StorePicker';
-import App from './App';
-import NotFound from './NotFound';
 
-// Little hack for deploy in github pages.
-// You need to add basename={repo} prop to BrowserRouter below.
-// const repo = `/${window.location.pathname.split('/')[1]}`;
+const StorePicker = lazy(() => import('./StorePicker'));
+const App = lazy(() => import('./App'));
+const NotFound = lazy(() => import('./NotFound'));
 
 const Router = () => (
   <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={StorePicker} />
-      <Route path="/store/:storeName" component={App} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path="/" component={StorePicker} />
+        <Route path="/store/:storeName" component={App} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   </BrowserRouter>
 );
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AddFishForm from './AddFishForm';
-import base from '../base';
 
 const Inventory = ({
   loadSamples,
