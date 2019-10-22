@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AddFishForm from './AddFishForm';
+import EditFishForm from './EditFishForm';
 
 const Inventory = ({
   loadSamples,
@@ -12,7 +13,9 @@ const Inventory = ({
 }) => (
   <div className="inventory">
     <h2>Inventory</h2>
-    {/* {Object.keys(fishes).map(this.renderInventory)} */}
+    {Object.keys(fishes).map(key => (
+      <EditFishForm />
+    ))}
     <AddFishForm addFish={addFish} />
     <button type="button" onClick={loadSamples}>
       Load Sample Fish

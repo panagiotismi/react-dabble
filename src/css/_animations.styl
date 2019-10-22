@@ -1,39 +1,43 @@
 /*
   Possible Animations:
   enter
-  leave
+  exit
   appear Must set transitionAppear={true} on animation component
 */
 
 .order-enter
-  transition: all 0.5s;
-  transform: translateX(-120%); // start off screen left
-  max-height: 0;
-  padding: 0 !important;
+  transform: translateX(-120%)
+  transition 0.5s
+  max-height: 0
+  padding 0 !important
   &.order-enter-active
-    max-height: 60px;
-    padding: 2rem 0 !important;
-    transform: translateX(0);
+    max-height 60px
+    transform: translateX(0)
+    padding 2rem 0 !important
 
-.order-leave
-  transition: all 0.5s;
-  transform: translateX(0);
-  &.order-leave-active
-    transform: translateX(120%); // finish off screen right
-    max-height: 0;
-    padding: 0;
+.order-exit
+  transition 0.5s
+  transform: translateX(0)
+  &.order-exit-active
+    transform: translateX(120%)
+    padding: 0
+
 
 .count-enter
-  transition: all 0.25s;
-  transform: translateY(100%); // start off screen down
+  background: red
+  transition .5s
+  transform translateY(100%)
   &.count-enter-active
-    transform: translateY(0);
+    background: yellow
+    transform translateY(0)
 
-.count-leave
-  transition: all 0.25s;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  transform: translateY(0);
-  &.count-leave-active
-    transform: translateY(-100%); // finish off screen up
+.count-exit
+  background: black
+  transform translateY(0)
+  transition .5s
+  position absolute
+  left 0
+  bottom 0
+  &.count-exit-active
+    background green
+    transform translateY(-100%) scale(3)
