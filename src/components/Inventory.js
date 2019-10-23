@@ -8,19 +8,23 @@ const Inventory = ({
   fishes,
   addFish,
   updateFish,
-  removeFish,
+  deleteFish,
   storeName,
 }) => (
   <div className="inventory">
     <h2>Inventory</h2>
-    {Object.keys(fishes).map(key => (
-      <EditFishForm
-        key={key}
-        index={key}
-        fish={fishes[key]}
-        updateFish={updateFish}
-      />
-    ))}
+    {Object.keys(fishes).map(
+      key =>
+        fishes[key] && (
+          <EditFishForm
+            key={key}
+            index={key}
+            fish={fishes[key]}
+            updateFish={updateFish}
+            deleteFish={deleteFish}
+          />
+        )
+    )}
     <AddFishForm addFish={addFish} />
     <button type="button" onClick={loadSamples}>
       Load Sample Fish
@@ -207,7 +211,7 @@ Inventory.propTypes = {
   addFish: PropTypes.func.isRequired,
   loadSamples: PropTypes.func.isRequired,
   updateFish: PropTypes.func.isRequired,
-  // removeFish: PropTypes.func.isRequired,
+  deleteFish: PropTypes.func.isRequired,
   // storeName: PropTypes.string.isRequired,
 };
 

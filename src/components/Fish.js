@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { formatPrice } from '../helpers';
 
 const Fish = ({
-  details: { name, image, price, desc, status },
+  fish: { name, image, price, desc, status },
   index,
   addToOrder,
 }) => {
@@ -29,7 +29,7 @@ const Fish = ({
 };
 
 Fish.propTypes = {
-  details: PropTypes.shape({
+  fish: PropTypes.shape({
     name: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,

@@ -35,45 +35,46 @@ const App = ({ match: { params } }) => {
     localStorage.setItem(`order-${params.storeName}`, JSON.stringify(order));
   }, [order, params.storeName]);
 
-  // const removeFish = key => setFishes({ ...fishes, [key]: null });
-
-  const addToOrder = key =>
-    setOrder(prevOrder => ({ ...prevOrder, [key]: prevOrder[key] + 1 || 1 }));
-
-  const removeFromOrder = key => {
-    delete order[key];
-    setOrder(order);
-  };
-
   return (
     <div className="catch-of-the-day">
       <div className="menu">
         <Header tagline="Fresh Seafood Market" />
         <ul className="list-of-fishes">
-          {Object.keys(fishes).map(key => (
-            <Fish
-              key={key}
-              index={key}
-              details={fishes[key]}
-              addToOrder={addToOrder}
-            />
-          ))}
+          {Object.keys(fishes).map(
+            key =>
+              fishes[key] && (
+                <Fish
+                  key={key}
+                  index={key}
+                  fish={fishes[key]}
+                  addToOrder={() =>
+                    setOrder(prevOrder => ({
+                      ...prevOrder,
+                      [key]: prevOrder[key] + 1 || 1,
+                    }))
+                  }
+                />
+              )
+          )}
         </ul>
       </div>
       <Order
         fishes={fishes}
         order={order}
-        removeFromOrder={removeFromOrder}
+        removeFromOrder={key => {
+          const { [key]: toRemove, ...rest } = order;
+          setOrder(rest);
+        }}
         params={params}
       />
       <Inventory
         fishes={fishes}
         loadSamples={() => dispatch(['SET', sampleFishes])}
-        addFish={fish => dispatch(['ADD', fish])}
-        updateFish={(key, updatedFish) =>
-          dispatch(['UPDATE', { key, updatedFish }])
+        addFish={newFish =>
+          dispatch(['UPDATE', { key: `fish${Date.now()}`, newFish }])
         }
-        // removeFish={removeFish}
+        updateFish={(key, newFish) => dispatch(['UPDATE', { key, newFish }])}
+        deleteFish={key => dispatch(['UPDATE', { key, newFish: null }])}
         // storeName={params.storeName}
       />
     </div>

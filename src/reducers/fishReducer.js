@@ -3,11 +3,11 @@ export const initialFishes = {};
 const fishReducer = (fishes, [type, payload]) => {
   switch (type) {
     case 'SET':
-      return { ...payload };
-    case 'ADD':
-      return { ...fishes, [`fish${Date.now()}`]: payload };
-    case 'UPDATE':
-      return { ...fishes, [payload.key]: payload.updatedFish };
+      return payload;
+    case 'UPDATE': {
+      const { key, newFish } = payload;
+      return { ...fishes, [key]: newFish };
+    }
     default:
       return fishes;
   }
