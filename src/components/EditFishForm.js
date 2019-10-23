@@ -41,7 +41,7 @@ const EditFishForm = ({ fish, index, updateFish, deleteFish }) => {
         value={fish.image}
       />
       <button type="button" onClick={() => deleteFish(index)}>
-        RemoveFish
+        Remove Fish
       </button>
     </div>
   );

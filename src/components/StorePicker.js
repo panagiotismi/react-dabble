@@ -21,9 +21,7 @@ const StorePicker = ({ history }) => {
         defaultValue={getFunName()}
         ref={storeInput}
       />
-      <button type="submit">
-        Visit Store <i className="fa fa-arrow-right" />
-      </button>
+      <button type="submit">Visit Store &rarr;</button>
     </form>
   );
 };
