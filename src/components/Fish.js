@@ -33,10 +33,7 @@ Fish.propTypes = {
     name: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    price: PropTypes.oneOfType([
-      PropTypes.string.isRequired,
-      PropTypes.number.isRequired,
-    ]).isRequired,
+    price: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
   }).isRequired,
   addToOrder: PropTypes.func.isRequired,
