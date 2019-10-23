@@ -23,7 +23,7 @@ const Inventory = ({
       const snapshot = await ref.once('value');
       const store = snapshot.val() || {};
       if (!store.owner) {
-        ref.set({ owner: authData.user.uid });
+        ref.update({ owner: authData.user.uid });
       }
       setUid(authData.user.uid);
       setOwner(store.owner || authData.user.uid);
