@@ -75,7 +75,7 @@ const App = ({ match: { params } }) => {
         }
         updateFish={(key, newFish) => dispatch(['UPDATE', { key, newFish }])}
         deleteFish={key => dispatch(['UPDATE', { key, newFish: null }])}
-        // storeName={params.storeName}
+        storeName={params.storeName}
       />
     </div>
   );
