@@ -3,38 +3,15 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import App from './App';
 import Header from './Header';
-import Order from './Order';
-import Inventory from './Inventory';
 
 configure({ adapter: new Adapter() });
-const wrapper = shallow(<App />);
+const wrapper = shallow(
+  <App match={{ params: { storeName: 'drab-obnoxious-tomatoes' } }} />
+);
 
-it('renders App without crashing', () => wrapper);
+it('renders App without crashing', async () => wrapper);
 
-it('renders Header', () => {
+it('renders Header', async () => {
   const header = <Header tagline="Fresh Seafood Market" />;
   expect(wrapper.contains(header)).toBe(true);
-});
-
-it('renders Order', () => {
-  const order = <Order />;
-  expect(wrapper.contains(order)).toBe(true);
-});
-
-it('renders Inventory', () => {
-  const inventory = <Inventory />;
-  expect(wrapper.contains(inventory)).toBe(true);
-});
-
-it('renders App correctly', () => {
-  const app = (
-    <div className="catch-of-the-day">
-      <div className="menu">
-        <Header tagline="Fresh Seafood Market" />
-      </div>
-      <Order />
-      <Inventory />
-    </div>
-  );
-  expect(wrapper).toContainEqual(app);
 });
